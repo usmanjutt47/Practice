@@ -3,12 +3,14 @@ import {
   Animated,
   Dimensions,
   Image,
-  FlatList,
   Text,
   View,
   StyleSheet,
+  TouchableOpacity,
 } from "react-native";
-import { StatusBar } from "expo-status-bar";
+import { SafeAreaView } from "react-native-safe-area-context";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { useNavigation } from "@react-navigation/native";
 
 const { width, height } = Dimensions.get("screen");
 const ITEM_WIDTH = width * 0.76;
@@ -35,6 +37,7 @@ const data = images.map((image, index) => ({
 }));
 
 export default function FirstImageCarousel() {
+  const navigation = useNavigation();
   const scrollX = React.useRef(new Animated.Value(0)).current;
   return (
     <View style={styles.container}>
@@ -59,9 +62,39 @@ export default function FirstImageCarousel() {
             outputRange: [-width * 0.7, 0, width * 0.7],
           });
           return (
-            <View
-              style={{ width, justifyContent: "center", alignItems: "center" }}
+            <SafeAreaView
+              style={{
+                width,
+                alignItems: "center",
+                backgroundColor: "#f4f6f6",
+              }}
             >
+              <View
+                style={{
+                  backgroundColor: "#f4f6f6",
+                  height: 50,
+                  width: "100%",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  paddingHorizontal: 12,
+                  gap: 10,
+                }}
+              >
+                <TouchableOpacity
+                  style={{
+                    height: 30,
+                    width: 30,
+                    borderWidth: 1,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderRadius: 44,
+                  }}
+                  onPress={() => navigation.goBack()}
+                >
+                  <Ionicons name="arrow-back-outline" size={24} color="black" />
+                </TouchableOpacity>
+                <Text>Parallax Carousel</Text>
+              </View>
               <View
                 style={{
                   borderColor: "white",
@@ -112,7 +145,7 @@ export default function FirstImageCarousel() {
                   }}
                 />
               </View>
-            </View>
+            </SafeAreaView>
           );
         }}
       />
