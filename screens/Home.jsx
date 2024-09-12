@@ -1,29 +1,53 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Home() {
   const navigation = useNavigation();
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text style={{ marginBottom: 10, fontSize: 20, fontWeight: "bold" }}>
-        Custom Image Slider's
-      </Text>
-      <Pressable
-        onPress={() => navigation.navigate("1")}
-        style={{
-          height: 48,
-          width: "90%",
-          backgroundColor: "#581845",
-          borderRadius: 99,
-          justifyContent: "center",
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#f4f6f6" }}>
+      <ScrollView
+        contentContainerStyle={{
+          flex: 1,
+          backgroundColor: "#f4f6f6",
+          alignItems: "center",
+          flexGrow: 1,
         }}
       >
-        <Text style={{ color: "#fff", textAlign: "center", fontSize: 18 }}>
-          FirstImageCarousel
-        </Text>
-      </Pressable>
-    </View>
+        <Pressable
+          onPress={() => navigation.navigate("Parallax Carousel")}
+          style={{
+            height: 48,
+            width: "90%",
+            backgroundColor: "#212f3c",
+            borderRadius: 10,
+            justifyContent: "center",
+            marginTop: "5%",
+          }}
+        >
+          <Text style={{ color: "#fff", textAlign: "center", fontSize: 18 }}>
+            Parallax Carousel
+          </Text>
+        </Pressable>
+
+        <Pressable
+          onPress={() => navigation.navigate("OnBoarding")}
+          style={{
+            height: 48,
+            width: "90%",
+            backgroundColor: "#7ab2ea",
+            borderRadius: 10,
+            justifyContent: "center",
+            marginTop: "5%",
+          }}
+        >
+          <Text style={{ color: "#fff", textAlign: "center", fontSize: 18 }}>
+            OnBoarding
+          </Text>
+        </Pressable>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
