@@ -8,6 +8,7 @@ import {
 import { StatusBar } from "expo-status-bar";
 import Home from "./screens/Home";
 import FirstImageCarousel from "./screens/FirstImageCarousel/FirstImageCarousel";
+import OnBoarding from "./screens/OnBoarding/OnBoarding";
 
 const Stack = createStackNavigator();
 
@@ -16,15 +17,16 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator
         initialRouteName="Home"
-        screenOptions={{ ...TransitionPresets.ModalSlideFromBottomIOS }}
+        screenOptions={{
+          ...TransitionPresets.ModalSlideFromBottomIOS,
+          headerShown: false,
+        }}
       >
         <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen
-          name="1"
-          component={FirstImageCarousel}
-          options={{ title: "Image Carousel" }}
-        />
+        <Stack.Screen name="Parallax Carousel" component={FirstImageCarousel} />
+        <Stack.Screen name="OnBoarding" component={OnBoarding} />
       </Stack.Navigator>
+
       <StatusBar style="auto" />
     </NavigationContainer>
   );
