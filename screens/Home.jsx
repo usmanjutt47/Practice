@@ -32,18 +32,18 @@ export default function Home() {
         </Pressable>
 
         <Pressable
-          onPress={() => navigation.navigate("OnBoarding")}
+          onPress={() => navigation.navigate("Tabs")}
           style={{
             height: 48,
             width: "90%",
-            backgroundColor: "#7ab2ea",
+            backgroundColor: "#212f3c",
             borderRadius: 10,
             justifyContent: "center",
             marginTop: "5%",
           }}
         >
           <Text style={{ color: "#fff", textAlign: "center", fontSize: 18 }}>
-            OnBoarding
+            Custom Bottom Tab
           </Text>
         </Pressable>
       </ScrollView>
