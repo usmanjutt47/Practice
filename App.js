@@ -9,6 +9,8 @@ import { StatusBar } from "expo-status-bar";
 import Home from "./screens/Home";
 import FirstImageCarousel from "./screens/FirstImageCarousel/FirstImageCarousel";
 import Tabs from "./screens/BottomTabs/Tabs";
+import CustomDrawer from "./screens/DrawerNavigation/CustomDrawer";
+import CustomAnimatedDrawer from "./screens/DrawerNavigation/CustomAnimatedDrawer";
 
 const Stack = createStackNavigator();
 
@@ -25,6 +27,11 @@ function App() {
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Parallax Carousel" component={FirstImageCarousel} />
         <Stack.Screen name="Tabs" component={Tabs} />
+        <Stack.Screen name="CustomDrawer" component={CustomDrawer} />
+        <Stack.Screen
+          name="CustomAnimatedDrawer"
+          component={CustomAnimatedDrawer}
+        />
       </Stack.Navigator>
       <StatusBar style="auto" />
     </NavigationContainer>
