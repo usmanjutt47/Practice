@@ -75,7 +75,7 @@ export default function Home() {
         }}
       >
         <Text style={{ color: "#fff", textAlign: "center", fontSize: 18 }}>
-          Drawer
+          Custom Drawer
         </Text>
       </TouchableOpacity>
       <TouchableOpacity
