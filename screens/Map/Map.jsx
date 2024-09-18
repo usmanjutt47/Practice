@@ -5,11 +5,12 @@ import {
   TouchableOpacity,
   TextInput,
   View,
+  Keyboard,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import MapView, { Marker } from "react-native-maps";
-import * as Location from "expo-location";
 import { MaterialIcons } from "@expo/vector-icons";
+import * as Location from "expo-location";
 
 export default function Map() {
   const [location, setLocation] = useState(null);
@@ -30,6 +31,20 @@ export default function Map() {
     })();
   }, []);
 
+  useEffect(() => {
+    if (location && mapRef.current) {
+      mapRef.current.animateToRegion(
+        {
+          latitude: location.latitude,
+          longitude: location.longitude,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        },
+        1000
+      );
+    }
+  }, [location]);
+
   const handleCurrentLocationPress = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") {
@@ -45,8 +60,8 @@ export default function Map() {
         {
           latitude: location.coords.latitude,
           longitude: location.coords.longitude,
-          latitudeDelta: 0.0005,
-          longitudeDelta: 0.0005,
+          latitudeDelta: 0.02,
+          longitudeDelta: 0.02,
         },
         1000
       );
@@ -54,33 +69,47 @@ export default function Map() {
   };
 
   const handleSearchSubmit = async () => {
-    let { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== "granted") {
-      Alert.alert("Permission denied", "Unable to access location");
-      return;
-    }
+    try {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        Alert.alert("Permission denied", "Unable to access location");
+        return;
+      }
 
-    let location = await Location.geocodeAsync(search);
-    if (location.length > 0) {
-      setLocation({
-        latitude: location[0].latitude,
-        longitude: location[0].longitude,
-      });
+      const response = await Location.geocodeAsync(search);
 
-      if (mapRef.current) {
-        mapRef.current.animateToRegion(
-          {
-            latitude: location[0].latitude,
-            longitude: location[0].longitude,
-            latitudeDelta: 0.001, // Zoom level
-            longitudeDelta: 0.001,
-          },
-          1500
+      if (response.length > 0) {
+        const { latitude, longitude } = response[0];
+        setLocation({ latitude, longitude });
+
+        if (mapRef.current) {
+          mapRef.current.animateToRegion(
+            {
+              latitude,
+              longitude,
+              latitudeDelta: 0.05,
+              longitudeDelta: 0.05,
+            },
+            1500
+          );
+        }
+        setSearch("");
+      } else {
+        Alert.alert("Error", "Location not found");
+        console.error(
+          "Geocoding API Error: Location not found for query:",
+          search
         );
       }
-    } else {
-      Alert.alert("Error", "Location not found");
+    } catch (error) {
+      Alert.alert("Error", "An error occurred while searching");
+      console.error("Search Error:", error);
     }
+  };
+
+  const handleClearSearch = () => {
+    setSearch("");
+    Keyboard.dismiss(); // Dismiss keyboard on clear
   };
 
   return (
@@ -91,34 +120,37 @@ export default function Map() {
           placeholder="Search for a location"
           value={search}
           onChangeText={setSearch}
+          returnKeyType="search" // Show search key on keyboard for single word
+          onSubmitEditing={handleSearchSubmit} // Trigger search on submit
         />
-        <TouchableOpacity
-          style={styles.searchButton}
-          onPress={handleSearchSubmit}
-        >
-          <MaterialIcons name="search" size={24} color="black" />
-        </TouchableOpacity>
+        {search.length > 0 && (
+          <TouchableOpacity
+            style={styles.clearButton}
+            onPress={handleClearSearch}
+          >
+            <MaterialIcons name="cancel" size={24} color="black" />
+          </TouchableOpacity>
+        )}
       </View>
       <MapView
         style={styles.map}
         ref={mapRef}
         initialRegion={{
-          latitude: 37.78825,
-          longitude: -122.4324,
+          latitude: location ? location.latitude : 37.78825,
+          longitude: location ? location.longitude : -122.4324,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}
         showsUserLocation={true}
       >
-        {/* Uncomment if you want to show a marker at the current location */}
-        {/* {location && (
+        {location && (
           <Marker
             coordinate={{
               latitude: location.latitude,
               longitude: location.longitude,
             }}
           />
-        )} */}
+        )}
       </MapView>
       <TouchableOpacity
         style={styles.locationButton}
@@ -172,6 +204,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   searchButton: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 10,
+  },
+  clearButton: {
     justifyContent: "center",
     alignItems: "center",
     marginRight: 10,
