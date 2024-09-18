@@ -78,6 +78,21 @@ export default function Home() {
           Drawer
         </Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("Map")}
+        style={{
+          height: 48,
+          width: "90%",
+          backgroundColor: "#a86732",
+          borderRadius: 10,
+          justifyContent: "center",
+          marginTop: "5%",
+        }}
+      >
+        <Text style={{ color: "#fff", textAlign: "center", fontSize: 18 }}>
+          Map
+        </Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }
