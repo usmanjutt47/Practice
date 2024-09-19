@@ -123,6 +123,22 @@ export default function Home() {
           Text Input
         </Text>
       </TouchableOpacity>
+
+      <TouchableOpacity
+        onPress={() => navigation.navigate("OrderStatusScreen")}
+        style={{
+          height: 48,
+          width: "90%",
+          backgroundColor: "#5332a8",
+          borderRadius: 10,
+          justifyContent: "center",
+          marginTop: "5%",
+        }}
+      >
+        <Text style={{ color: "#fff", textAlign: "center", fontSize: 18 }}>
+          Vertical Order Status
+        </Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }
