@@ -108,6 +108,21 @@ export default function Home() {
           Custom Image Crousel
         </Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("InputHome")}
+        style={{
+          height: 48,
+          width: "90%",
+          backgroundColor: "#f0a535",
+          borderRadius: 10,
+          justifyContent: "center",
+          marginTop: "5%",
+        }}
+      >
+        <Text style={{ color: "#fff", textAlign: "center", fontSize: 18 }}>
+          Text Input
+        </Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }
