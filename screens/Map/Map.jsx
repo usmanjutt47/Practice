@@ -41,22 +41,23 @@ export default function Map() {
   }, []);
 
   // Smooth animation to region
-  useEffect(() => {
-    if (location && mapRef.current) {
-      mapRef.current.animateToRegion(
-        {
-          latitude: location.latitude,
-          longitude: location.longitude,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        },
-        2000 // Duration increased for smoother transition
-      );
-    }
-  }, [location]);
+  // useEffect(() => {
+  //   if (location && mapRef.current) {
+  //     mapRef.current.animateToRegion(
+  //       {
+  //         latitude: location.latitude,
+  //         longitude: location.longitude,
+  //         latitudeDelta: 0.001,
+  //         longitudeDelta: 0.001,
+  //       },
+  //       2000 // Duration increased for smoother transition
+  //     );
+  //   }
+  // }, [location]);
 
   const handleCurrentLocationPress = async () => {
     setAnimating(true);
+
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") {
       Alert.alert("Permission denied", "Unable to access current location");
@@ -64,21 +65,33 @@ export default function Map() {
       return;
     }
 
-    let location = await Location.getCurrentPositionAsync({});
-    setLocation(location.coords);
+    try {
+      let location = await Location.getCurrentPositionAsync({});
+      console.log("Fetched Location:", location); // Debug log
 
-    if (mapRef.current) {
-      mapRef.current.animateToRegion(
-        {
-          latitude: location.latitude,
-          longitude: location.longitude,
-          latitudeDelta: 0.02,
-          longitudeDelta: 0.02,
-        },
-        2000 // Adjust duration for slower, smoother animation
-      );
+      if (location && location.coords) {
+        const { latitude, longitude } = location.coords;
+        setLocation({ latitude, longitude }); // Update location state
+
+        if (mapRef.current) {
+          mapRef.current.animateToRegion(
+            {
+              latitude,
+              longitude,
+              latitudeDelta: 0.001,
+              longitudeDelta: 0.001,
+            },
+            2000 // Duration for smoother animation
+          );
+        }
+      } else {
+        console.error("Location data is invalid:", location);
+      }
+    } catch (error) {
+      console.error("Error fetching location:", error);
+    } finally {
+      setAnimating(false);
     }
-    setAnimating(false);
   };
 
   const handleSearchSubmit = async () => {
@@ -102,8 +115,8 @@ export default function Map() {
             {
               latitude,
               longitude,
-              latitudeDelta: 0.05,
-              longitudeDelta: 0.05,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
             },
             1500
           );
@@ -135,6 +148,11 @@ export default function Map() {
 
   const toggleToNormal = () => {
     setMapType("standard");
+  };
+
+  // Reset to North direction
+  const handleCompassPress = () => {
+    handleCurrentLocationPress(); // Call the current location function
   };
 
   return (
@@ -196,7 +214,8 @@ export default function Map() {
       <Pressable style={styles.normalButton} onPress={toggleToNormal}>
         <FontAwesome5 name="route" size={30} color="black" />
       </Pressable>
-      <Pressable style={styles.compass} onPress={toggleToNormal}>
+
+      <Pressable style={styles.compass} onPress={handleCompassPress}>
         <FontAwesome5 name="compass" size={30} color="black" />
       </Pressable>
     </SafeAreaView>
