@@ -12,6 +12,8 @@ import Tabs from "./screens/BottomTabs/Tabs";
 import CustomDrawer from "./screens/DrawerNavigation/CustomDrawer";
 import CustomAnimatedDrawer from "./screens/DrawerNavigation/CustomAnimatedDrawer";
 import Map from "./screens/Map/Map";
+import CustomImageCrousel from "./screens/ImageSlider/CustomImageCrousel";
+import ImageHome from "./screens/ImageSlider/ImageHome";
 
 const Stack = createStackNavigator();
 
@@ -22,7 +24,7 @@ function App() {
         initialRouteName="Home"
         screenOptions={{
           headerShown: false,
-          ...TransitionPresets.ModalSlideFromBottomIOS,
+          ...TransitionPresets.SlideFromRightIOS,
         }}
       >
         <Stack.Screen name="Home" component={Home} />
@@ -30,6 +32,8 @@ function App() {
         <Stack.Screen name="Tabs" component={Tabs} />
         <Stack.Screen name="CustomDrawer" component={CustomDrawer} />
         <Stack.Screen name="Map" component={Map} />
+        <Stack.Screen name="ImageSlider" component={CustomImageCrousel} />
+        <Stack.Screen name="ImageHome" component={ImageHome} />
         <Stack.Screen
           name="CustomAnimatedDrawer"
           component={CustomAnimatedDrawer}
