@@ -6,7 +6,6 @@ import {
   TextInput,
   View,
   Keyboard,
-  Text,
   ActivityIndicator,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -21,21 +20,27 @@ export default function Map() {
   const [search, setSearch] = useState("");
   const [mapType, setMapType] = useState("standard");
   const [loading, setLoading] = useState(false);
+  const [animating, setAnimating] = useState(true);
   const mapRef = useRef(null);
 
+  // Initial location fetch
   useEffect(() => {
     (async () => {
+      setAnimating(true);
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
         setErrorMsg("Permission to access location was denied");
+        setAnimating(false);
         return;
       }
 
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location.coords);
+      setAnimating(false);
     })();
   }, []);
 
+  // Smooth animation to region
   useEffect(() => {
     if (location && mapRef.current) {
       mapRef.current.animateToRegion(
@@ -45,15 +50,17 @@ export default function Map() {
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         },
-        1000
+        2000 // Duration increased for smoother transition
       );
     }
   }, [location]);
 
   const handleCurrentLocationPress = async () => {
+    setAnimating(true);
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") {
       Alert.alert("Permission denied", "Unable to access current location");
+      setAnimating(false);
       return;
     }
 
@@ -63,14 +70,15 @@ export default function Map() {
     if (mapRef.current) {
       mapRef.current.animateToRegion(
         {
-          latitude: location.coords.latitude,
-          longitude: location.coords.longitude,
+          latitude: location.latitude,
+          longitude: location.longitude,
           latitudeDelta: 0.02,
           longitudeDelta: 0.02,
         },
-        1000
+        2000 // Adjust duration for slower, smoother animation
       );
     }
+    setAnimating(false);
   };
 
   const handleSearchSubmit = async () => {
