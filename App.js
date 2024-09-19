@@ -16,6 +16,8 @@ import CustomImageCrousel from "./screens/ImageSlider/CustomImageCrousel";
 import ImageHome from "./screens/ImageSlider/ImageHome";
 import TextInputScreen from "./screens/TextInput/TextInputScreen";
 import InputHome from "./screens/TextInput/InputHome";
+import OrderStatusScreen from "./screens/OrderStatus/VerticalOrderStatusScreen";
+import VerticalOrderStatusScreen from "./screens/OrderStatus/VerticalOrderStatusScreen";
 
 const Stack = createStackNavigator();
 
@@ -38,6 +40,10 @@ function App() {
         <Stack.Screen name="ImageHome" component={ImageHome} />
         <Stack.Screen name="TextInput" component={TextInputScreen} />
         <Stack.Screen name="InputHome" component={InputHome} />
+        <Stack.Screen
+          name="OrderStatusScreen"
+          component={VerticalOrderStatusScreen}
+        />
         <Stack.Screen
           name="CustomAnimatedDrawer"
           component={CustomAnimatedDrawer}
