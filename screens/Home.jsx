@@ -93,6 +93,21 @@ export default function Home() {
           Map
         </Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("ImageHome")}
+        style={{
+          height: 48,
+          width: "90%",
+          backgroundColor: "#428df5",
+          borderRadius: 10,
+          justifyContent: "center",
+          marginTop: "5%",
+        }}
+      >
+        <Text style={{ color: "#fff", textAlign: "center", fontSize: 18 }}>
+          Custom Image Crousel
+        </Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }
