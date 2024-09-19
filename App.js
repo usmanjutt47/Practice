@@ -14,6 +14,8 @@ import CustomAnimatedDrawer from "./screens/DrawerNavigation/CustomAnimatedDrawe
 import Map from "./screens/Map/Map";
 import CustomImageCrousel from "./screens/ImageSlider/CustomImageCrousel";
 import ImageHome from "./screens/ImageSlider/ImageHome";
+import TextInputScreen from "./screens/TextInput/TextInputScreen";
+import InputHome from "./screens/TextInput/InputHome";
 
 const Stack = createStackNavigator();
 
@@ -34,6 +36,8 @@ function App() {
         <Stack.Screen name="Map" component={Map} />
         <Stack.Screen name="ImageSlider" component={CustomImageCrousel} />
         <Stack.Screen name="ImageHome" component={ImageHome} />
+        <Stack.Screen name="TextInput" component={TextInputScreen} />
+        <Stack.Screen name="InputHome" component={InputHome} />
         <Stack.Screen
           name="CustomAnimatedDrawer"
           component={CustomAnimatedDrawer}
