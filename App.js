@@ -18,6 +18,7 @@ import TextInputScreen from "./screens/TextInput/TextInputScreen";
 import InputHome from "./screens/TextInput/InputHome";
 import OrderStatusScreen from "./screens/OrderStatus/VerticalOrderStatusScreen";
 import VerticalOrderStatusScreen from "./screens/OrderStatus/VerticalOrderStatusScreen";
+import AnimatedDrawer from "./screens/DrawerNavigation/CustomDrawer/AnimatedDrawer";
 
 const Stack = createStackNavigator();
 
@@ -40,6 +41,7 @@ function App() {
         <Stack.Screen name="ImageHome" component={ImageHome} />
         <Stack.Screen name="TextInput" component={TextInputScreen} />
         <Stack.Screen name="InputHome" component={InputHome} />
+        <Stack.Screen name="AnimatedDrawer" component={AnimatedDrawer} />
         <Stack.Screen
           name="OrderStatusScreen"
           component={VerticalOrderStatusScreen}
