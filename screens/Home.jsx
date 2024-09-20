@@ -139,6 +139,21 @@ export default function Home() {
           Vertical Order Status
         </Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("AnimatedDrawer")}
+        style={{
+          height: 48,
+          width: "90%",
+          backgroundColor: "#d1f542",
+          borderRadius: 10,
+          justifyContent: "center",
+          marginTop: "5%",
+        }}
+      >
+        <Text style={{ color: "#fff", textAlign: "center", fontSize: 18 }}>
+          Vertical Order Status
+        </Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }
