@@ -29,7 +29,6 @@ export default function CustomButtons() {
         <ThemedButton name="bruce" type="danger" disabled style={styles.button}>
           Anchor
         </ThemedButton>
-        
       </View>
       <View style={styles.section}>
         <View style={styles.title}>
