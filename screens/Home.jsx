@@ -97,6 +97,12 @@ export default function Home() {
         >
           <Text style={styles.buttonText}>Button</Text>
         </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("UseState")}
+          style={[styles.button, { backgroundColor: "#123" }]}
+        >
+          <Text style={styles.buttonText}>Todo List</Text>
+        </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
   );
