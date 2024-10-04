@@ -22,6 +22,7 @@ import AnimatedDrawer from "./screens/DrawerNavigation/CustomDrawer/AnimatedDraw
 import CustomButtons from "./screens/Buttons/CustomButtons";
 import Button from "./screens/Buttons/Button";
 import ButtonApp from "./screens/Buttons/ButtonApp";
+import UseState from "./screens/useState/UseState";
 
 const Stack = createStackNavigator();
 
@@ -48,6 +49,7 @@ function App() {
         <Stack.Screen name="CustomButtons" component={CustomButtons} />
         <Stack.Screen name="Button" component={Button} />
         <Stack.Screen name="ButtonApp" component={ButtonApp} />
+        <Stack.Screen name="UseState" component={UseState} />
         <Stack.Screen
           name="OrderStatusScreen"
           component={VerticalOrderStatusScreen}
